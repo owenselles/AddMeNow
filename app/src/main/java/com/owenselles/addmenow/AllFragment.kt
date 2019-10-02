@@ -1,11 +1,14 @@
 package com.owenselles.addmenow
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import kotlinx.android.synthetic.main.fragment_all.*
 
 
@@ -13,6 +16,10 @@ import kotlinx.android.synthetic.main.fragment_all.*
  * A simple [Fragment] subclass.
  */
 class AllFragment : Fragment() {
+
+    val db = FirebaseFirestore.getInstance()
+
+    val TAG = "AddMeNow"
 
     private lateinit var linearLayoutManager: LinearLayoutManager
 
@@ -37,15 +44,23 @@ class AllFragment : Fragment() {
 
     fun AddAllToList() {
         val users = mutableListOf<User>()
-        for (i in 0..25) {
-            users.add(User("owenselles", "18", "just now"))
-        }
+        val docRef = db.collection("posts").orderBy("lastSeen", Query.Direction.DESCENDING).limit(25)
+        docRef.get()
+            .addOnSuccessListener { document ->
+                document.documents.forEach {
+                    val e = it.toObject(User::class.java!!)
+                    users.add(e!!)
+                }
+                    AllRecycler.apply {
+                        layoutManager = LinearLayoutManager(activity)
+                        adapter = UsersAdapter(users)
+                    }
+                    swipeContainer.isRefreshing = false
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
 
-        
-        AllRecycler.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = UsersAdapter(users)
-        }
-        swipeContainer.isRefreshing = false
+
     }
 }
