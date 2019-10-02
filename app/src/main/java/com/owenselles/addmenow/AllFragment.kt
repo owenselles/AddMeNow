@@ -48,7 +48,7 @@ class AllFragment : Fragment() {
         docRef.get()
             .addOnSuccessListener { document ->
                 document.documents.forEach {
-                    val e = it.toObject(User::class.java!!)
+                    val e = it.toObject(User::class.java)
                     users.add(e!!)
                 }
                     AllRecycler.apply {
