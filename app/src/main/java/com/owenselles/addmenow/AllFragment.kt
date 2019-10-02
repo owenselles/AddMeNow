@@ -41,6 +41,7 @@ class AllFragment : Fragment() {
             users.add(User("owenselles", "18", "just now"))
         }
 
+        
         AllRecycler.apply {
             layoutManager = LinearLayoutManager(activity)
             adapter = UsersAdapter(users)
