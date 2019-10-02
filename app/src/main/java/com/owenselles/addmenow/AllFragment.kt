@@ -37,7 +37,7 @@ class AllFragment : Fragment() {
 
     fun AddAllToList() {
         val users = mutableListOf<User>()
-        for (i in 0..100) {
+        for (i in 0..25) {
             users.add(User("owenselles", "18", "just now"))
         }
 
