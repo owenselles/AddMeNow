@@ -23,15 +23,18 @@ class UsersAdapter(val users: List<User>) : RecyclerView.Adapter<UsersAdapter.Vi
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.setBackgroundColor(parseColor("#F5F5F5"))
         holder.snapName.text = users[position].snapName
-        holder.age.text = users[position].age
-        holder.lastSeen.text = users[position].lastSeen
+        holder.age.text = users[position].age.plus("yo")
+        if (users[position].gender.equals("male")) {
+            holder.gender.text = "\uD83D\uDC66"
+        } else {
+            holder.gender.text = "\uD83D\uDC67"
+        }
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val snapName: TextView = view.list_username
         val age: TextView = view.list_age
-        val lastSeen: TextView = view.list_lastseen
-
+        val gender: TextView = view.textView3
     }
 }
 
