@@ -21,12 +21,16 @@ class UsersAdapter(val users: List<User>) : RecyclerView.Adapter<UsersAdapter.Vi
     override fun getItemCount() = users.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.itemView.setBackgroundColor(Color.parseColor("#F5F5F5"))
+        holder.itemView.setBackgroundColor(parseColor("#F5F5F5"))
         holder.snapName.text = users[position].snapName
+        holder.age.text = users[position].age
+        holder.lastSeen.text = users[position].lastSeen
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val snapName: TextView = view.list_username
+        val age: TextView = view.list_age
+        val lastSeen: TextView = view.list_lastseen
 
     }
 }
