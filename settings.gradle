@@ -1,2 +1,7 @@
+/*
+ * Copyright (c) 2019 Owen Selles
+ * All rights reserved.
+ */
+
 include ':app'
 rootProject.name='AddMeNow'

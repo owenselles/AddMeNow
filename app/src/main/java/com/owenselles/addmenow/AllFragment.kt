@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2019 Owen Selles
+ * All rights reserved.
+ */
+
 package com.owenselles.addmenow
 
 import android.os.Bundle
@@ -44,23 +49,22 @@ class AllFragment : Fragment() {
 
     fun AddAllToList() {
         val users = mutableListOf<User>()
-        val docRef = db.collection("posts").orderBy("lastSeen", Query.Direction.DESCENDING).limit(25)
+        val docRef =
+            db.collection("posts").orderBy("lastSeen", Query.Direction.DESCENDING).limit(25)
         docRef.get()
             .addOnSuccessListener { document ->
                 document.documents.forEach {
                     val e = it.toObject(User::class.java)
                     users.add(e!!)
                 }
-                    AllRecycler.apply {
-                        layoutManager = LinearLayoutManager(activity)
-                        adapter = UsersAdapter(users)
-                    }
-                    swipeContainer.isRefreshing = false
+                AllRecycler.apply {
+                    layoutManager = LinearLayoutManager(activity)
+                    adapter = UsersAdapter(users)
+                }
+                swipeContainer.isRefreshing = false
             }
             .addOnFailureListener { exception ->
                 Log.d(TAG, "get failed with ", exception)
             }
-
-
     }
 }

@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1047889628284-ht0ncj2tkcbv8vr0mg5fsmdv11pv43b7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.owenselles.addmenow",
+            "certificate_hash": "e402ae460f9ab4566618456ec392f70427f0b971"
+          }
+        },
+        {
           "client_id": "1047889628284-8lgiqpb1pthvv7um6habfi43d2q2hfo3.apps.googleusercontent.com",
           "client_type": 3
         }

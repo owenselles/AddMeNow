@@ -1,3 +1,8 @@
+<!--
+  ~ Copyright (c) 2019 Owen Selles
+  ~ All rights reserved.
+  -->
+
 <resources>
     <string name="app_name">AddMeNow</string>
     <string name="addmenow">AddMeNow</string>
