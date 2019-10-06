@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ~ Copyright (c) 2019 Owen Selles
-  ~ All rights reserved.
-  -->
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.owenselles.addmenow">
 
@@ -14,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.owenselles.addmenow.HomeActivity" />
+        </activity>
         <activity android:name=".HomeActivity" />
         <activity android:name=".SetupActivity" />
         <activity
@@ -26,6 +29,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoginActivity" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-2995962868659376~6235739707" />
     </application>
 
 </manifest>

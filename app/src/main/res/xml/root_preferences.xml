@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2019 Owen Selles
+  ~ All rights reserved.
+  -->
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory app:title="Profile">
+
+        <EditTextPreference
+            app:key="SnapName"
+            app:title="Snap username"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:key="age"
+            app:title="Age"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            android:defaultValue="1"
+            android:entries="@array/genders"
+            android:entryValues="@array/genders"
+            android:key="list_preference_gender"
+            android:title="Gender" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory app:title="Account">
+
+        <Preference
+            android:key="@string/logout_button"
+            android:title="Logout" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
