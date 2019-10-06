@@ -78,7 +78,7 @@
         app:layout_constraintRight_toRightOf="@id/PostButton"
         app:maxImageSize="20dp"
         app:pressedTranslationZ="1dp"
-        app:srcCompat="@android:drawable/btn_star"
+        app:srcCompat="?attr/actionModeShareDrawable"
         app:useCompatPadding="false" />
 
     <com.google.android.gms.ads.AdView

@@ -11,8 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.list_item.view.*
+import androidx.core.content.ContextCompat.startActivity
+import android.content.Intent
+import android.net.Uri
+
 
 class UsersAdapter(val users: List<User>) : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -42,6 +47,19 @@ class UsersAdapter(val users: List<User>) : RecyclerView.Adapter<UsersAdapter.Vi
         }
         holder.button.setOnClickListener() {
             //TODO open add screen
+            val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context, R.style.ThemeOverlay_MaterialComponents_Dialog_Alert)
+//                .setTitle(users[position].snapName)
+                .setMessage("Username copied to clipboard")
+                .setPositiveButton("\uD83D\uDC7B Open in Snapchat") { dialog, which ->
+                    val openURL = Intent(Intent.ACTION_VIEW)
+                    openURL.data = Uri.parse("https://www.snapchat.com/add/" + holder.snapName)
+                    startActivity(holder.itemView.context, openURL, null)
+
+                }
+                .setNegativeButton("\uD83D\uDEAB Dismiss") { dialog, which ->
+                    dialog.dismiss()
+                }
+                .show()
         }
     }
 
