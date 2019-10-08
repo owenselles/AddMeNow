@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
@@ -57,7 +58,8 @@ class LoginActivity : AppCompatActivity() {
                 if (response!!.isNewUser) {
                     val currentUser = FirebaseAuth.getInstance().currentUser
                     val user = hashMapOf(
-                        "uid" to currentUser!!.uid
+                        "uid" to currentUser!!.uid,
+                        "updated" to FieldValue.serverTimestamp()
                     )
                     db.collection("users").document(currentUser.uid)
                         .set(user as Map<String, Any>)

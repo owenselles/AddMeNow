@@ -15,6 +15,7 @@
 
         <EditTextPreference
             android:clickable="false"
+            app:enabled="false"
             app:key="age"
             app:title="Age"
             app:useSimpleSummaryProvider="true" />

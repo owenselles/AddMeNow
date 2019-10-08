@@ -40,17 +40,17 @@ class AllFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AddAllToList()
+        addAllToList()
 
         swipeContainer.setOnRefreshListener {
-            AddAllToList()
+            addAllToList()
         }
     }
 
-    fun AddAllToList() {
+    private fun addAllToList() {
         val users = mutableListOf<User>()
         val docRef =
-            db.collection("posts").orderBy("lastSeen", Query.Direction.DESCENDING).limit(25)
+            db.collection("posts").orderBy("timestamp", Query.Direction.DESCENDING).limit(25)
         docRef.get()
             .addOnSuccessListener { document ->
                 document.documents.forEach {

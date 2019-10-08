@@ -31,32 +31,31 @@ class UsersAdapter(val users: List<User>) : RecyclerView.Adapter<UsersAdapter.Vi
         holder.itemView.setBackgroundColor(parseColor("#F5F5F5"))
         holder.snapName.text = users[position].snapName
         holder.age.text = users[position].age.plus("yo")
-        if (users[position].gender.equals("male")) {
+        if (users[position].gender.equals("Male")) {
             holder.gender.text = """👦"""
         } else {
             holder.gender.text = """👧"""
         }
         if (users[position].looking.equals("streak")) {
             holder.looking.text = """🔥"""
-        } else if (users[position].looking.equals("friend")) {
+        } else if (users[position].looking.equals("friends")) {
             holder.looking.text = """🎉"""
-        } else if (users[position].looking.equals("friend+")) {
+        } else if (users[position].looking.equals("friends+")) {
             holder.looking.text = """🍑"""
         } else {
             holder.looking.text = """👀"""
         }
-        holder.button.setOnClickListener() {
-            //TODO open add screen
-            val alertDialogBuilder = AlertDialog.Builder(holder.itemView.context, R.style.ThemeOverlay_MaterialComponents_Dialog_Alert)
-//                .setTitle(users[position].snapName)
+        holder.button.setOnClickListener {
+            AlertDialog.Builder(holder.itemView.context, R.style.ThemeOverlay_MaterialComponents_Dialog_Alert)
                 .setMessage("Username copied to clipboard")
-                .setPositiveButton("\uD83D\uDC7B Open in Snapchat") { dialog, which ->
+                    //todo copy to clipboard
+                .setPositiveButton("\uD83D\uDC7B Open in Snapchat") { _, _ ->
                     val openURL = Intent(Intent.ACTION_VIEW)
                     openURL.data = Uri.parse("https://www.snapchat.com/add/" + holder.snapName)
                     startActivity(holder.itemView.context, openURL, null)
 
                 }
-                .setNegativeButton("\uD83D\uDEAB Dismiss") { dialog, which ->
+                .setNegativeButton("\uD83D\uDEAB Dismiss") { dialog, _ ->
                     dialog.dismiss()
                 }
                 .show()

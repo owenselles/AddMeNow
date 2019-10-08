@@ -9,14 +9,19 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
 import com.firebase.ui.auth.AuthUI
-import androidx.preference.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 
 class SettingsActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.settings_activity)
@@ -25,7 +30,6 @@ class SettingsActivity : AppCompatActivity() {
             .replace(R.id.settings, SettingsFragment())
             .commit()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
 
 
     }
@@ -49,13 +53,15 @@ class SettingsActivity : AppCompatActivity() {
                     val gender = document.get("gender")
                     val birthdate = document.get("birthdate")
 
-                    val username = findPreference<EditTextPreference>("SnapName") as EditTextPreference
+                    val username =
+                        findPreference<EditTextPreference>("SnapName") as EditTextPreference
                     username.text = snapname.toString()
 
-                    val genderSetting = findPreference<ListPreference>("list_preference_gender") as ListPreference
+                    val genderSetting =
+                        findPreference<ListPreference>("list_preference_gender") as ListPreference
                     genderSetting.value = gender.toString()
 
-                    val ageSetting = findPreference<ListPreference>("age") as EditTextPreference
+                    val ageSetting = findPreference<EditTextPreference>("age") as EditTextPreference
                     val parts = birthdate.toString().split(".")
                     val year = parts[2].toInt()
                     val month = parts[1].toInt()
@@ -94,6 +100,32 @@ class SettingsActivity : AppCompatActivity() {
                     }
                 true
             } else false
+        }
+
+        override fun onDestroy() {
+            //get gender value
+            val genderPreference =
+                findPreference<ListPreference>("list_preference_gender") as ListPreference
+            val gender = genderPreference.entry.toString()
+
+            //get username value
+            val snapNamePreference =
+                findPreference<EditTextPreference>("SnapName") as EditTextPreference
+            val snapName = snapNamePreference.text
+
+            val user = hashMapOf(
+                "snap" to snapName,
+                "gender" to gender,
+                "updated" to FieldValue.serverTimestamp()
+            )
+
+            val currentUser = FirebaseAuth.getInstance().currentUser
+            val userSettings = db.collection("users").document(currentUser!!.uid)
+            userSettings
+                .update(user as Map<String, Any>)
+                .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully updated!") }
+                .addOnFailureListener { e -> Log.w(TAG, "Error updating document", e) }
+            super.onDestroy()
         }
     }
 }

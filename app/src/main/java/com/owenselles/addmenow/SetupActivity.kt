@@ -14,6 +14,7 @@ import android.widget.RadioButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_setup.*
 import java.text.SimpleDateFormat
@@ -28,9 +29,9 @@ class SetupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setup)
-        title = "Setup";
+        title = "Setup"
 
-    val textView: TextView = BirthdayInput
+        val textView: TextView = BirthdayInput
         textView.text = SimpleDateFormat("dd.MM.yyyy").format(System.currentTimeMillis())
         val cal = Calendar.getInstance()
         val dateSetListener =
@@ -86,7 +87,9 @@ class SetupActivity : AppCompatActivity() {
                 val user = hashMapOf(
                     "snap" to snapName,
                     "birthdate" to sdf.format(cal.time),
-                    "gender" to gender
+                    "gender" to gender,
+                    "updated" to FieldValue.serverTimestamp()
+
                 )
                 if (currentUser != null) {
                     val intent = Intent(this, HomeActivity::class.java)
